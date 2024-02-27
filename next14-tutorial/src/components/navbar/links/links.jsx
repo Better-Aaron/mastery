@@ -14,6 +14,7 @@ const links = [
 const Links = () => {
   const [open, setOpen] = useState(false);
 
+  // TEMPORARY
   const session = true;
   const isAdmin = true;
 
@@ -21,10 +22,18 @@ const Links = () => {
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
-          <NavLink item={link} />
+          <NavLink item={link} key={link.title} />
         ))}
-
-        <NavLink item={{ title: 'Login', path: '/login' }} />
+        {session ? (
+          <>
+            {isAdmin && <NavLink item={{ title: 'Admin', path: '/admin' }} />}
+            <form action={() => {}}>
+              <button className={styles.logout}>Logout</button>
+            </form>
+          </>
+        ) : (
+          <NavLink item={{ title: 'Login', path: '/login' }} />
+        )}
       </div>
       <Image
         className={styles.menuButton}
