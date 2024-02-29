@@ -10,7 +10,7 @@
 }
 
 .imgContainer {
-  width: 90%;
+  width: 80%;
   height: 400px;
   position: relative;
 }
@@ -36,13 +36,8 @@
   margin-bottom: 20px;
   font-weight: 300;
   color: gray;
-
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
+
 .link {
   text-decoration: underline;
 }
