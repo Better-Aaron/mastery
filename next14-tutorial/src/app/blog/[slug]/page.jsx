@@ -1,7 +1,24 @@
-import Image from 'next/image';
-import styles from './single-post.module.css';
+import Image from "next/image";
+import styles from "./single-post.module.css";
+import PostUser from "@/components/post-user/post-user";
+import { Suspense } from "react";
+import { getPost } from "@/lib/data";
 
-const SinglePostPage = () => {
+// const getData = async (id) => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+//   if (!res.ok) {
+//     throw new Error("Something went wrong");
+//   }
+
+//   return res.json();
+// };
+
+const SinglePostPage = async ({ params }) => {
+  const { slug } = params;
+  console.log(slug);
+  const post = await getPost(slug);
+  console.log(post);
+
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
@@ -13,7 +30,7 @@ const SinglePostPage = () => {
         />
       </div>
       <div className={styles.textContainer}>
-        <h1 className={styles.title}>title</h1>
+        <h1 className={styles.title}>{post?.title}</h1>
         <div className={styles.detail}>
           <Image
             src="https://images.pexels.com/photos/18119535/pexels-photo-18119535.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -22,21 +39,18 @@ const SinglePostPage = () => {
             width={50}
             height={50}
           />
-          <div className={styles.detailText}>
-            <span className={styles.detailTitle}>Author</span>
-            <span className={styles.detailValue}>Aaron Kim</span>
-          </div>
+          {post && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <PostUser userId={post?.userId} />
+            </Suspense>
+          )}
+
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
             <span className={styles.detailValue}>02.29.2024</span>
           </div>
         </div>
-        <div className={styles.content}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad provident
-          itaque sit cupiditate quia dolorum sequi atque eius eligendi hic
-          ratione inventore, voluptas nihil facere reiciendis tenetur impedit
-          culpa ut.
-        </div>
+        <div className={styles.content}>{post?.body}</div>
       </div>
     </div>
   );
