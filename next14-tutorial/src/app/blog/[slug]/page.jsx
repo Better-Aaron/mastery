@@ -15,9 +15,7 @@ import { getPost } from "@/lib/data";
 
 const SinglePostPage = async ({ params }) => {
   const { slug } = params;
-  console.log(slug);
   const post = await getPost(slug);
-  console.log(post);
 
   return (
     <div className={styles.container}>

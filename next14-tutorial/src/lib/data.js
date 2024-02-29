@@ -1,3 +1,7 @@
+import { NextResponse } from "next/server";
+import { Post, User } from "./models";
+import { connectToDb } from "./utils";
+
 // TEMPORARY DATA
 const users = [
   { id: 1, name: "John" },
@@ -12,13 +16,45 @@ const posts = [
 ];
 
 export const getPosts = async () => {
-  return posts;
+  try {
+    connectToDb();
+    const posts = await Post.find().lean();
+    return posts;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts!");
+  }
 };
 
-export const getPost = async (id) => {
-  return posts.find((post) => post.id == id);
+export const getPost = async (slug) => {
+  try {
+    connectToDb();
+    const post = await Post.findOne({ slug }).lean();
+    return post;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch post!");
+  }
 };
 
 export const getUser = async (id) => {
-  return users.find((user) => user.id == id);
+  try {
+    connectToDb();
+    const user = await User.findById(id).lean();
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch user!");
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    connectToDb();
+    const users = await User.find();
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch users!");
+  }
 };
