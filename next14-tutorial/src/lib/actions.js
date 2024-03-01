@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { Post, User } from './models';
 import { connectToDb } from './utils';
 import bcrypt from 'bcryptjs';
+import { signIn, signOut } from './auth';
 
 export const addPost = async (formData) => {
   const { title, desc, slug, userId } = Object.fromEntries(formData);
@@ -75,19 +76,25 @@ export const deleteUser = async (fromData) => {
   }
 };
 
-export const handleGithubLogin = async () => {};
+export const handleGithubLogin = async () => {
+  await signIn('github');
+};
 
-export const handleLogout = async () => {};
+export const handleLogout = async () => {
+  await signOut();
+};
 
-export const register = async (previousState, formData) => {
+export const register = async (formData) => {
   const { username, email, password, img, passwordRepeat } =
     Object.fromEntries(formData);
 
   if (password !== passwordRepeat) {
-    return { error: 'Passwords to not match' };
+    return { error: 'Passwords do not match' };
   }
+
   try {
     connectToDb();
+
     const user = await User.findOne({ username });
 
     if (user) {
@@ -114,10 +121,11 @@ export const register = async (previousState, formData) => {
   }
 };
 
-export const login = async (prevState, formData) => {
+export const login = async (formData) => {
   const { username, password } = Object.fromEntries(formData);
 
   try {
+    await signIn('credentials', { username, password });
   } catch (err) {
     console.log(err);
 
