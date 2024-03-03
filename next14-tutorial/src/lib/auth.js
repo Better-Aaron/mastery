@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectToDb } from './utils';
 import { User } from './models';
 import bcrypt from 'bcryptjs';
+import { authConfig } from './auth.config';
 
 const login = async (credentials) => {
   try {
@@ -18,11 +19,10 @@ const login = async (credentials) => {
     );
 
     if (!isPasswordCorrect) throw new Error('Wrong credentials!');
-
     return user;
   } catch (err) {
     console.log(err);
-    throw new Error('Failed to login');
+    throw new Error('Failed to login!');
   }
 };
 
@@ -32,6 +32,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  ...authConfig,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID,
@@ -41,7 +42,15 @@ export const {
       async authorize(credentials) {
         try {
           const user = await login(credentials);
-          return user;
+          console.log(user);
+          const _user = {
+            id: user.id,
+            email: user.email,
+            name: user.username,
+            img: user.img,
+            isAdmin: user.isAdmin,
+          };
+          return _user;
         } catch (err) {
           return null;
         }
@@ -50,7 +59,6 @@ export const {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      console.log(user, account, profile);
       if (account.provider === 'github') {
         connectToDb();
         try {
@@ -72,5 +80,6 @@ export const {
       }
       return true;
     },
+    ...authConfig.callbacks,
   },
 });

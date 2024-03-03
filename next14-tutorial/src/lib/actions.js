@@ -1,13 +1,18 @@
 'use server';
+
 import { revalidatePath } from 'next/cache';
 import { Post, User } from './models';
 import { connectToDb } from './utils';
-import bcrypt from 'bcryptjs';
 import { signIn, signOut } from './auth';
+import bcrypt from 'bcryptjs';
 
-export const addPost = async (formData) => {
+export const addPost = async (prevState, formData) => {
+  // const title = formData.get("title");
+  // const desc = formData.get("desc");
+  // const slug = formData.get("slug");
+
   const { title, desc, slug, userId } = Object.fromEntries(formData);
-  console.log(title, desc, slug, userId);
+
   try {
     connectToDb();
     const newPost = new Post({
@@ -16,8 +21,11 @@ export const addPost = async (formData) => {
       slug,
       userId,
     });
+
     await newPost.save();
+    console.log('saved to db');
     revalidatePath('/blog');
+    revalidatePath('/admin');
   } catch (err) {
     console.log(err);
     return { error: 'Something went wrong!' };
@@ -31,10 +39,10 @@ export const deletePost = async (formData) => {
     connectToDb();
 
     await Post.findByIdAndDelete(id);
+    console.log('deleted from db');
     revalidatePath('/blog');
     revalidatePath('/admin');
-    console.log(`deleted post ${id}`);
-  } catch (error) {
+  } catch (err) {
     console.log(err);
     return { error: 'Something went wrong!' };
   }
@@ -61,11 +69,12 @@ export const addUser = async (prevState, formData) => {
   }
 };
 
-export const deleteUser = async (fromData) => {
+export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
   try {
     connectToDb();
+
     await Post.deleteMany({ userId: id });
     await User.findByIdAndDelete(id);
     console.log('deleted from db');
@@ -77,14 +86,16 @@ export const deleteUser = async (fromData) => {
 };
 
 export const handleGithubLogin = async () => {
+  'use server';
   await signIn('github');
 };
 
 export const handleLogout = async () => {
+  'use server';
   await signOut();
 };
 
-export const register = async (formData) => {
+export const register = async (previousState, formData) => {
   const { username, email, password, img, passwordRepeat } =
     Object.fromEntries(formData);
 
@@ -121,7 +132,7 @@ export const register = async (formData) => {
   }
 };
 
-export const login = async (formData) => {
+export const login = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
   try {
@@ -129,7 +140,7 @@ export const login = async (formData) => {
   } catch (err) {
     console.log(err);
 
-    if (err.message.includes('CredentialsSignin')) {
+    if (err.stack.includes('CredentialsSignin')) {
       return { error: 'Invalid username or password' };
     }
     throw err;
