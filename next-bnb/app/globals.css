@@ -17,4 +17,10 @@
     max-width: 1440px;
     margin: 0 auto;
   }
+  .input {
+    @apply relative w-full h-[46px] pr-[44px] pl-[11px] border rounded-md text-[16px] outline-none placeholder:text-gray_76;
+  }
+}
+
+@layer utilities {
 }
