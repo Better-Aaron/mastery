@@ -7,8 +7,6 @@ import { signIn, signOut } from './auth';
 import bcrypt from 'bcryptjs';
 
 export const addPost = async (prevState, formData) => {
-  // const title = formData.get("title");
-  // const desc = formData.get("desc");
   // const slug = formData.get("slug");
 
   const { title, desc, slug, userId } = Object.fromEntries(formData);
@@ -78,6 +76,7 @@ export const deleteUser = async (formData) => {
     await Post.deleteMany({ userId: id });
     await User.findByIdAndDelete(id);
     console.log('deleted from db');
+    revalidatePath('/blog');
     revalidatePath('/admin');
   } catch (err) {
     console.log(err);
