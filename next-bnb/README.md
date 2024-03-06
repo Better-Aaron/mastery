@@ -21,6 +21,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 delete -> 객체 속성 제거
 
+### 리덕스 설정
+1. 설치
+```shell
+yarn add next-redux-wrapper @reduxjs/tookit react-redux redux
+yarn add @types/react-redux
+```
+2. type 생성 
+types/reduxState.d.ts
+3. 리덕스 툴킷을 이용하여 유저 모듈과 유저 값을 저장하는 리듀서 생성
+store/user.ts
+4. 리덕스 wrapper와 타입이 지원되는 커스텀 useSelector생성
+store/index.ts
 
 ## Deploy on Vercel
 
