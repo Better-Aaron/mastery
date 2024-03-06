@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import CloseXIcon from "@/public/static/svg/modal/modal_colose_x_icon.svg";
-import MailIcon from "@/public/static/svg/auth/mail.svg";
-import PersonIcon from "@/public/static/svg/auth/person.svg";
-import OpenedEyeIcon from "@/public/static/svg/auth/opened_eye.svg";
-import ClosedEyeIcon from "@/public/static/svg/auth/closed_eye.svg";
-import Input from "../common/Input";
-import Selector from "../common/Selector";
-import { dayList, monthList, yearList } from "@/lib/staticData";
-import Button from "../common/Button";
-import { signupAPI } from "@/lib/api/auth";
+import React, { useState } from 'react';
+import CloseXIcon from '@/public/static/svg/modal/modal_colose_x_icon.svg';
+import MailIcon from '@/public/static/svg/auth/mail.svg';
+import PersonIcon from '@/public/static/svg/auth/person.svg';
+import OpenedEyeIcon from '@/public/static/svg/auth/opened_eye.svg';
+import ClosedEyeIcon from '@/public/static/svg/auth/closed_eye.svg';
+import Input from '../common/Input';
+import Selector from '../common/Selector';
+import { dayList, monthList, yearList } from '@/lib/staticData';
+import Button from '../common/Button';
+import { signupAPI } from '@/lib/api/auth';
 
 const SignUpModal: React.FC = () => {
-  const [email, setEmail] = useState("k.aaron.kim@gmail.com");
-  const [lastname, setLastname] = useState("minsam");
-  const [firstname, setFirstname] = useState("kim");
-  const [password, setPassword] = useState("1234");
+  const [email, setEmail] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 
   const [birthYear, setBirthYear] = useState<string | undefined>();
@@ -62,11 +62,12 @@ const SignUpModal: React.FC = () => {
         firstname,
         password,
         birthday: new Date(
-          `${birthYear}-${birthMonth!.replace("월", "")}-${birthDay}`
+          `${birthYear}-${birthMonth!.replace('월', '')}-${birthDay}`
         ).toISOString(),
       };
 
-      await signupAPI(signUpBody);
+      const res = await signupAPI(signUpBody);
+      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -113,7 +114,7 @@ const SignUpModal: React.FC = () => {
         <Input
           className="input "
           placeholder="비밀번호 설정하기"
-          type={hidePassword ? "password" : "text"}
+          type={hidePassword ? 'password' : 'text'}
           icon={
             hidePassword ? (
               <ClosedEyeIcon
@@ -141,7 +142,7 @@ const SignUpModal: React.FC = () => {
         <div className="w-1/3 mr-4">
           <Selector
             options={yearList}
-            disabledOptions={["년"]}
+            disabledOptions={['년']}
             defaultValue="년"
             value={birthYear}
             onChange={onChangeBirthYear}
@@ -150,7 +151,7 @@ const SignUpModal: React.FC = () => {
         <div className="flex-1 mr-4">
           <Selector
             options={monthList}
-            disabledOptions={["월"]}
+            disabledOptions={['월']}
             defaultValue="월"
             value={birthMonth}
             onChange={onChangeBirthMonth}
@@ -159,7 +160,7 @@ const SignUpModal: React.FC = () => {
         <div className="w-1/4 ">
           <Selector
             options={dayList}
-            disabledOptions={["일"]}
+            disabledOptions={['일']}
             defaultValue="일"
             value={birthDay}
             onChange={onChangeBirthDay}

@@ -1,24 +1,23 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import Data from "@/lib/data";
-import { StoredUserType } from "@/types/user";
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { NextApiRequest, NextApiResponse } from 'next';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import Data from '@/lib/data';
+import { StoredUserType } from '@/types/user';
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export const POST = async (req: NextApiRequest) => {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const data = (await req.body.getReader().read()).value;
     const str = String.fromCharCode.apply(String, data);
     const _body = JSON.parse(str);
 
     const { email, firstname, lastname, password, birthday } = _body;
 
-    console.log(_body);
     if (!email || !firstname || !lastname || !password || !birthday) {
       //return res.status(400).json({error: '필수 데이터가 없습니다.'})
       return NextResponse.json(
-        { error: "필수 데이터가 없습니다." },
+        { error: '필수 데이터가 없습니다.' },
         {
           status: 400,
         }
@@ -28,7 +27,7 @@ export const POST = async (req: NextApiRequest) => {
     if (userExist) {
       //return res.status(409).json({error: '이미 가입된 이메일입니다.'})
       return NextResponse.json(
-        { error: "이미 가입된 이메일입니다." },
+        { error: '이미 가입된 이메일입니다.' },
         {
           status: 409,
         }
@@ -52,7 +51,7 @@ export const POST = async (req: NextApiRequest) => {
       lastname,
       password: hashedPassword,
       birthday,
-      profileImage: "/static/image/user/default_user_profile_image.jpg",
+      profileImage: '/static/image/user/default_user_profile_image.jpg',
     };
 
     Data.user.write([...users, newUser]);
@@ -60,13 +59,18 @@ export const POST = async (req: NextApiRequest) => {
     const token = jwt.sign(String(newUser.id), process.env.JWT_SECRET!);
 
     cookies().set(
-      "access-token",
+      'access-token',
       `${token}; path=/; expires=${new Date(
         Date.now() + 60 * 60 * 24 * 1000 * 3
       )}; httponly`
     );
 
-    return NextResponse.json({message:'사용자 등록 성공'}, {status: 200});
+    //* 생성된 유저의 정보 전달
+    const newUserWithoutPassword: Partial<Pick<StoredUserType, 'password'>> =
+      newUser;
+    delete newUserWithoutPassword.password;
+
+    return NextResponse.json(newUser);
 
     // res.setHeader(
     //   "Set-Cookie",
@@ -83,7 +87,7 @@ export const POST = async (req: NextApiRequest) => {
     //   )}; httponly`
     // );
     response.cookies.set(
-      "access_token",
+      'access_token',
       `${token}; path=/; expires=${new Date(
         Date.now() + 60 * 60 * 24 * 1000 * 3
       )}; httponly`
