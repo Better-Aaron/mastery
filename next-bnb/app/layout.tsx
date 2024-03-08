@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Noto_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
-import { Provider } from 'react-redux';
-import { wrapper } from '@/store';
+import StoreProvider from './storeProvder';
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
@@ -17,21 +16,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  ...rest
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { store, props } = wrapper.useWrappedStore(rest);
-
   return (
-    <Provider store={store}>
-      <html lang="en">
-        <body className={notoSans.className}>
+    <html lang="en">
+      <body className={notoSans.className}>
+        <StoreProvider>
           <Header />
           {children}
           <div id="root-modal" />
-        </body>
-      </html>
-    </Provider>
+        </StoreProvider>
+      </body>
+    </html>
   );
 }

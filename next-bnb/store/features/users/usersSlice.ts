@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserState } from '@/types/reduxState';
 import { UserType } from '@/types/user';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-//* 초기 상태
 const initialState: UserState = {
   id: 0,
   email: '',
@@ -13,7 +12,7 @@ const initialState: UserState = {
   profileImage: '',
 };
 
-const user = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -25,6 +24,6 @@ const user = createSlice({
   },
 });
 
-export const userActions = { ...user.actions };
+export const { setLoggedUser } = userSlice.actions;
 
-export default user;
+export default userSlice.reducer;
