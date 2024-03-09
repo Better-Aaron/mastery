@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import useValidateMode from './useValidateMode';
 
 const useModal = () => {
   const [modalOpened, setModalOpened] = useState(false);
-
+  const { validateMode, setValidateMode } = useValidateMode();
   const openModal = () => {
     setModalOpened(true);
   };
 
   const closeModal = () => {
+    setValidateMode(false);
     setModalOpened(false);
   };
 

@@ -6,7 +6,7 @@ import SignUpModal from './auth/SignUpModal';
 import useModal from '@/hooks/useModal';
 
 const Header: React.FC = () => {
-  const { openModal, ModalPortal } = useModal();
+  const { openModal, ModalPortal, closeModal } = useModal();
 
   return (
     <header className="sticky top-0 w-full flex justify-between items-center h-[80px] px-[40px] shadow-sm z-50">
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         </button>
       </div>
       <ModalPortal>
-        <SignUpModal />
+        <SignUpModal closeModal={closeModal} />
       </ModalPortal>
     </header>
   );
