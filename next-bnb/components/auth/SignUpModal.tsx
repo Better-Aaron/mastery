@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import CloseXIcon from '@/public/static/svg/modal/modal_colose_x_icon.svg';
 import MailIcon from '@/public/static/svg/auth/mail.svg';
 import PersonIcon from '@/public/static/svg/auth/person.svg';
@@ -106,14 +106,36 @@ const SignUpModal = ({ closeModal }: IProps) => {
     setHidePassword(!hidePassword);
   };
 
+  //* 회원 가입 폼 입력 값 확인하기
+  const validateSignUpForm = () => {
+    //* 인풋 값이 없음
+    if (!email || !lastname || !firstname || !password) {
+      return false;
+    }
+    //* 비밀번호 규칙 체크
+    if (
+      isPasswordHasNameOrEmail ||
+      !isPasswordOverMinLength ||
+      isPasswordHasNumberOrSymbol
+    ) {
+      return false;
+    }
+
+    //* 생년월일 셀렉터 값이 없을때
+    if (!birthDay || !birthMonth || !birthYear) {
+      return false;
+    }
+    return true;
+  };
+
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setValidateMode(true);
+    console.log(validateSignUpForm());
 
-    if (!email || !lastname || !firstname || !password) {
-      return undefined;
-    }
+    if (!validateSignUpForm()) return;
+
     try {
       const signUpBody = {
         email,
@@ -129,16 +151,24 @@ const SignUpModal = ({ closeModal }: IProps) => {
 
       dispatch(setLoggedUser(data));
 
-      console.log();
+      closeModal();
     } catch (e) {
       console.log(e);
     }
   };
 
+  useEffect(() => {
+    return () => {
+      setValidateMode(false);
+    };
+  }, []);
+
+  const changeToLoginModal = () => {};
+
   return (
     <form
       onSubmit={onSubmitSignUp}
-      className="w-[568px] h-[614px] bg-white z-[11] p-8 overflow-scroll"
+      className="w-[568px] h-[650px] bg-white z-[11] p-8 overflow-scroll"
     >
       <CloseXIcon
         className="cursor-pointer block ml-auto mb-10"
@@ -241,6 +271,7 @@ const SignUpModal = ({ closeModal }: IProps) => {
             defaultValue="년"
             value={birthYear}
             onChange={onChangeBirthYear}
+            isValid={!!birthYear}
           />
         </div>
         <div className="flex-1 mr-4">
@@ -250,6 +281,7 @@ const SignUpModal = ({ closeModal }: IProps) => {
             defaultValue="월"
             value={birthMonth}
             onChange={onChangeBirthMonth}
+            isValid={!!birthMonth}
           />
         </div>
         <div className="w-1/4 ">
@@ -259,12 +291,23 @@ const SignUpModal = ({ closeModal }: IProps) => {
             defaultValue="일"
             value={birthDay}
             onChange={onChangeBirthDay}
+            isValid={!!birthDay}
           />
         </div>
       </div>
       <div className="mb-4 pb-4 border-b border-b-gray_eb">
         <Button type="submit">가입하기</Button>
       </div>
+      <p>
+        이미 에어비앤비 계정이 있나요?
+        <span
+          className="text-dark_cyan ml-2 cursor-pointer"
+          role="presentation"
+          onClick={changeToLoginModal}
+        >
+          로그인
+        </span>
+      </p>
     </form>
   );
 };
