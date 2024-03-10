@@ -34,9 +34,22 @@ const registerRoomSlice = createSlice({
       state.buildingType = action.payload;
       return state;
     },
+    setRoomType(state, action: PayloadAction<'entire' | 'private' | 'public'>) {
+      state.roomType = action.payload;
+      return state;
+    },
+    setIsSetUpForGuest(state, action: PayloadAction<boolean>) {
+      console.log('setIsSetUpForGuest', action.payload);
+      state.isSetUpForGuest = action.payload;
+      return state;
+    },
   },
 });
 
-export const { setLargeBuildingType, setBuildingType } =
-  registerRoomSlice.actions;
+export const {
+  setLargeBuildingType,
+  setBuildingType,
+  setRoomType,
+  setIsSetUpForGuest,
+} = registerRoomSlice.actions;
 export default registerRoomSlice.reducer;

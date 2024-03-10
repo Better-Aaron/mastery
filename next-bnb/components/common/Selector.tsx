@@ -1,7 +1,6 @@
 import useValidateMode from '@/hooks/useValidateMode';
-import React from 'react';
 import WarningIcon from '@/public/static/svg/common/warning.svg';
-import { useAppSelector } from '@/store/hooks';
+import React from 'react';
 
 interface IProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -23,7 +22,7 @@ const Selector: React.FC<IProps> = ({
   disabledOptions = [],
   ...props
 }) => {
-  const validateMode = useAppSelector((state) => state.common.validateMode);
+  const { validateMode } = useValidateMode();
 
   const normalSelectStyle = `w-full h-full  px-3 bg-white border  rounded-md outline-none px-[11px] appearance-none bg-[url('/static/svg/common/selector/selector_down_arrow.svg')] bg-no-repeat bg-[center_right_11px] text-base focus:border-dark_cyan
   ${
