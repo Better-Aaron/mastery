@@ -33,6 +33,7 @@ export default async function RootLayout({
   try {
     if (!isLogged && token) {
       user = await meAPI(token);
+      console.log(user);
     }
   } catch (e) {
     console.log(e);

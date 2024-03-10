@@ -23,7 +23,7 @@ export const GET = async (req: NextRequest) => {
     const userWithoutPassword: Partial<Pick<StoredUserType, 'password'>> = user;
     delete userWithoutPassword.password;
 
-    return NextResponse.json({ user }, { status: 200 });
+    return NextResponse.json(user, { status: 200 });
   } catch (e) {
     console.log(e);
     return NextResponse.json({ error: e }, { status: 500 });

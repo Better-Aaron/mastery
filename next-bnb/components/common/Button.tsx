@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -15,4 +15,4 @@ const Button: React.FC<IProps> = ({ children, ...props }) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);

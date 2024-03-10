@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './features/users/usersSlice';
 import commonSlice from './features/common/commonSlice';
 import authSlide from './features/auth/authSlice';
+import registerRoomSlice from './features/room/registerRoomSlice';
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () => {
       user: userSlice,
       common: commonSlice,
       auth: authSlide,
+      registerRoom: registerRoomSlice,
     },
   });
 };

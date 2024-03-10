@@ -270,7 +270,7 @@ const SignUpModal = ({ closeModal }: IProps) => {
         <div className="w-1/3 mr-4">
           <Selector
             options={yearList}
-            disabledOptions={['년']}
+            disabledOptions={disabledYears}
             defaultValue="년"
             value={birthYear}
             onChange={onChangeBirthYear}
@@ -280,7 +280,7 @@ const SignUpModal = ({ closeModal }: IProps) => {
         <div className="flex-1 mr-4">
           <Selector
             options={monthList}
-            disabledOptions={['월']}
+            disabledOptions={disabledMoths}
             defaultValue="월"
             value={birthMonth}
             onChange={onChangeBirthMonth}
@@ -290,7 +290,7 @@ const SignUpModal = ({ closeModal }: IProps) => {
         <div className="w-1/4 ">
           <Selector
             options={dayList}
-            disabledOptions={['일']}
+            disabledOptions={disabledDays}
             defaultValue="일"
             value={birthDay}
             onChange={onChangeBirthDay}
