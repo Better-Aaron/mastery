@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { setLoggedUser } from '@/store/features/users/usersSlice';
 import useValidateMode from '@/hooks/useValidateMode';
 import PasswordWarning from './PasswordWarning';
+import { setAuthMode } from '@/store/features/auth/authSlice';
 
 interface IProps {
   closeModal: () => void;
@@ -163,12 +164,14 @@ const SignUpModal = ({ closeModal }: IProps) => {
     };
   }, []);
 
-  const changeToLoginModal = () => {};
-
+  //* 회원가입 모달로 변경
+  const changeToLoginModal = () => {
+    dispatch(setAuthMode('login'));
+  };
   return (
     <form
       onSubmit={onSubmitSignUp}
-      className="w-[568px] h-[650px] bg-white z-[11] p-8 overflow-scroll"
+      className="w-[568px] max-h-screen bg-white z-[11] p-8 overflow-auto"
     >
       <CloseXIcon
         className="cursor-pointer block ml-auto mb-10"

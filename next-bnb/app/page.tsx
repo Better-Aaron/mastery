@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 export default function Home() {
   return (
     <main className="font-notosans">
-      <h1 className="text-3xl text-cardinal">가나다라마바사</h1>
+      <h1 className="text-3xl text-cardinal">This is home page </h1>
     </main>
   );
 }
