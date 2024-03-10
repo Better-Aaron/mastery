@@ -70,7 +70,10 @@ const LoginModal: React.FC<IPros> = ({ closeModal }) => {
 
   return (
     <form className="w-[568px] p-8 bg-white z-11" onSubmit={onSubmitLogin}>
-      <CloseXIcon className="cursor-pointer block ml-auto mb-10" />
+      <CloseXIcon
+        className="cursor-pointer block ml-auto mb-10"
+        onClick={closeModal}
+      />
       <div className="relative mb-4">
         <Input
           placeholder="이메일 주소"

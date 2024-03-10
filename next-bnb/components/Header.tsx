@@ -10,7 +10,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import AuthModal from './auth/AuthModal';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { makeStore } from '@/store/store';
+import { logoutAPI } from '@/lib/api/auth';
+import { initUser } from '@/store/features/users/usersSlice';
 
 const Header: React.FC = () => {
   const { openModal, ModalPortal, closeModal } = useModal();
@@ -18,6 +19,14 @@ const Header: React.FC = () => {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
+  const logout = async () => {
+    try {
+      await logoutAPI();
+      dispatch(initUser());
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
   return (
     <header className="sticky top-0 w-full flex justify-between items-center h-[80px] px-[40px] shadow-sm z-50">
       <a href="/" className="flex items-center">
@@ -88,7 +97,7 @@ const Header: React.FC = () => {
               <li
                 className="flex items-center w-full h-10 px-4 cursor-pointer hover:bg-gray_f7"
                 role="presentation"
-                onClick={() => {}}
+                onClick={logout}
               >
                 로그아웃
               </li>
