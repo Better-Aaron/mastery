@@ -1,7 +1,7 @@
-import React from 'react';
+import RegisterRopomBedrooms from '@/components/register/RegisterRoomBedrooms';
 
 const BedRoomsPage = () => {
-  return <div>BedRoomsPage</div>;
+  return <RegisterRopomBedrooms />;
 };
 
 export default BedRoomsPage;
