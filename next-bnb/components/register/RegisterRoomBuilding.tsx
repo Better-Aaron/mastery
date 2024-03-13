@@ -13,6 +13,7 @@ import {
   setRoomType,
 } from '@/store/features/room/registerRoomSlice';
 import RadioGroup from '../common/RadioGroup';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const disabledLargeBuildingTypeOptions = ['하나를 선택해주세요.'];
 
@@ -138,10 +139,16 @@ const RegisterRoomBuilding = () => {
 
   //* 게스트용 숙소인지 변경
   const onChangeIsSetUpForGuest = (value: boolean) => {
-    console.log(value);
     dispatch(setIsSetUpForGuest(value));
   };
 
+  //* 모든 값이 있는지 확인하기
+  const isValid = useMemo(() => {
+    if (!largeBuildingType || !buildingType || !roomType || !isSetUpForGuest) {
+      return false;
+    }
+    return true;
+  }, [largeBuildingType, buildingType, roomType, isSetUpForGuest]);
   return (
     <div className="pt-[62px] px-[30px] pb-[100px]">
       <h2 className="text-[19px] font-extrabold mb-16">
@@ -150,21 +157,23 @@ const RegisterRoomBuilding = () => {
       <h3 className="font-bold text-gray_76 mb-1.5">1단계</h3>
       <div className="w-[320px] mb-8">
         <Selector
+          label="우선 범위를 좁혀볼까요?"
+          isValid={!!largeBuildingType}
           type="register"
           value={largeBuildingType || undefined}
           defaultValue="하나를 선택해주세요."
           disabledOptions={disabledLargeBuildingTypeOptions}
-          label="우선 범위를 좁혀볼까요?"
           options={largeBuildingTypeList}
           onChange={onChangeLargeBuildingType}
         ></Selector>
       </div>
       <div className="w-[320px] mb-8">
         <Selector
+          label="건물 유형을 선택하세요."
+          isValid={!!buildingType}
           type="register"
           value={buildingType || undefined}
           disabled={!largeBuildingType}
-          label="건물 유형을 선택하세요."
           options={detailBuildingOptions}
           onChange={onChangeBuildingType}
         />
@@ -174,6 +183,7 @@ const RegisterRoomBuilding = () => {
           <div className="max-w-[485px] mb-[50px]">
             <RadioGroup
               label="게스트가 묵게 될 숙소 유형을 골라주세요."
+              isValid={!!roomType}
               value={roomType || undefined}
               options={roomTypeRadioOptions}
               onChange={onChangeRoomType}
@@ -190,6 +200,11 @@ const RegisterRoomBuilding = () => {
           </div>
         </>
       )}
+      <RegisterRoomFooter
+        isValid={isValid}
+        prevHref="/"
+        nextHref="/room/register/bedrooms"
+      />
     </div>
   );
 };

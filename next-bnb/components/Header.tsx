@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     }
   };
   return (
-    <header className="sticky top-0 w-full flex justify-between items-center h-[80px] px-[40px] shadow-sm z-50">
+    <header className="sticky top-0 w-full flex justify-between items-center h-[80px] px-[40px] shadow-sm z-50 bg-white">
       <a href="/" className="flex items-center">
         <AirbnbLogoIcon className="mr-1.5" />
         <AirbnbLogoTextIcon />
