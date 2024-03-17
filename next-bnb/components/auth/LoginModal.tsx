@@ -110,7 +110,9 @@ const LoginModal: React.FC<IPros> = ({ closeModal }) => {
         />
       </div>
       <div className="mb-4 pb-4 border-b border-gray_eb">
-        <Button type="submit">로그인</Button>
+        <Button type="submit" color="bittersweet">
+          로그인
+        </Button>
       </div>
 
       <p>

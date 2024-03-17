@@ -62,9 +62,10 @@ const RegisterRopomBedrooms = () => {
       <div className="w-[320px] mt-[24px] mb-[32px]">
         <Selector
           type="register"
+          label="게스트가 사용할 수 있는 침실은 몇 개인가요?"
+          isValid={!!bedroomCount}
           value={`침실 ${bedroomCount}개`}
           onChange={onChangeBedroomCount}
-          label="게스트가 사용할 수 있는 침실은 몇 개인가요?"
           options={bedroomCountList}
         />
       </div>

@@ -12,6 +12,92 @@
   scroll-behavior: smooth;
 }
 
+/** 지도 위성 제거 */
+.gmnoprint .gm-style-mtc {
+  display: none;
+}
+
+/** 로드뷰 아이콘 제거 */
+.gm-svpc {
+  display: none;
+}
+
+/** 풀스크린 제거 */
+.gm-fullscreen-control {
+  display: none;
+}
+
+.checkbox-label {
+  position: relative;
+  height: 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  color: #484848;
+  cursor: pointer;
+  float: left;
+  clear: both;
+}
+
+/** ie input x 버튼 삭제 */
+input::-ms-clear {
+  display: none;
+}
+
+.checkbox-label>input[type='checkbox'] {
+  margin: 0;
+  border: 0;
+  width: 0;
+  height: 0;
+  -webkit-appearance: none;
+}
+
+.checkbox-label>input[type='checkbox']:checked {
+  margin: 0;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.checkbox-label>input[type='checkbox']+input {
+  display: none;
+}
+
+.checkbox-label>input[type='checkbox']+span {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.checkbox-label>input[type='checkbox']+span::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 0;
+  display: inline-table;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-sizing: border-box;
+  background-color: white;
+  cursor: pointer;
+}
+
+.checkbox-label>input[type='checkbox']:checked+span::before {
+  content: " ";
+  width: 18px;
+  height: 18px;
+  display: inline-table;
+  background-color: #008489;
+  border: 0;
+  border-radius: 2px;
+  position: absolute;
+  background-image: url("/static/svg/common/checkbox/checkbox_mark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 @layer components {
   .max-container {
     max-width: 1440px;
