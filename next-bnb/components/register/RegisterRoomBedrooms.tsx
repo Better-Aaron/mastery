@@ -19,7 +19,7 @@ const RegisterRopomBedrooms = () => {
   const dispatch = useAppDispatch();
 
   const maximumGeustCount = useAppSelector(
-    (state) => state.registerRoom.maxsimumGuestCount
+    (state) => state.registerRoom.maximumGuestCount
   );
 
   const bedroomCount = useAppSelector(

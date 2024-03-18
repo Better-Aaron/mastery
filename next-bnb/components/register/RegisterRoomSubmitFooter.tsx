@@ -4,6 +4,7 @@ import BackArrowIcon from '@/public/static/svg/register/register_room_footer_bac
 import Button from '../common/Button';
 import { useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
+import { registerRoomAPI } from '@/lib/api/room';
 
 const RegisterRoomSubmitFooter = () => {
   const userId = useAppSelector((state) => state.user.id);

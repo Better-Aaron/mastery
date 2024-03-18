@@ -11,7 +11,7 @@ type RegisterRoomState = {
   //* 게스트만을 위해 만들어진 숙소?
   isSetUpForGuest: boolean | null;
   //* 최대 숙박인원
-  maxsimumGuestCount: number;
+  maximumGuestCount: number;
   //* 침실 개수
   bedroomCount: number;
   //*침대 개수
@@ -64,7 +64,7 @@ const initialState: RegisterRoomState = {
   buildingType: null,
   roomType: null,
   isSetUpForGuest: null,
-  maxsimumGuestCount: 1,
+  maximumGuestCount: 1,
   bedroomCount: 0,
   bedCount: 1,
   bedList: [],
@@ -121,7 +121,7 @@ const registerRoomSlice = createSlice({
       return state;
     },
     setMaximumGuestCount(state, action: PayloadAction<number>) {
-      state.maxsimumGuestCount = action.payload;
+      state.maximumGuestCount = action.payload;
       return state;
     },
     //* 침실 개수 변경
