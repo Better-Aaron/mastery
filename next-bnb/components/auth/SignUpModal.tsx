@@ -299,7 +299,9 @@ const SignUpModal = ({ closeModal }: IProps) => {
         </div>
       </div>
       <div className="mb-4 pb-4 border-b border-b-gray_eb">
-        <Button type="submit">가입하기</Button>
+        <Button type="submit" color="bittersweet">
+          가입하기
+        </Button>
       </div>
       <p>
         이미 에어비앤비 계정이 있나요?

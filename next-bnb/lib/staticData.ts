@@ -407,7 +407,7 @@ export const amentityList = [
 ];
 
 //* 편의 공간
-export const convinienceList = [
+export const convenienceList = [
   '주방',
   '세탁 공간 - 세탁기',
   '주차',
