@@ -1,6 +1,19 @@
 'use client';
-import React, { useState } from 'react';
-import { Tabs, TabsList, TabsContent, TabsTrigger } from '@/components/ui/tabs';
+
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+
+//* import swiper react components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+//* import swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+//* import required modules
+import { Pagination } from 'swiper/modules';
+
+// components
 import ProjectCard from '@/components/project-card';
 
 const projectData = [
@@ -69,7 +82,7 @@ const projectData = [
   },
   {
     image: '/assets/work/4.png',
-    category: 'flutter',
+    category: 'react js',
     name: 'Nexa Website',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, laudantium.',
@@ -78,7 +91,7 @@ const projectData = [
   },
   {
     image: '/assets/work/2.png',
-    category: 'flutter',
+    category: 'react js',
     name: 'Nexa Website',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, laudantium.',
@@ -87,7 +100,7 @@ const projectData = [
   },
   {
     image: '/assets/work/1.png',
-    category: 'next js',
+    category: 'fullstack',
     name: 'Nexa Website',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, laudantium.',
@@ -96,57 +109,43 @@ const projectData = [
   },
 ];
 
-// remove category duplicates
-const uniqueCategories = [
-  'all projects',
-  ...new Set(projectData.map((item) => item.category)),
-];
-
-const Projects = () => {
-  const [categories, setCategories] = useState(uniqueCategories);
-  const [category, setCategory] = useState('all projects');
-
-  const filteredProjects = projectData.filter((project) => {
-    return category === 'all projects'
-      ? project
-      : project.category === category;
-  });
+const Work = () => {
   return (
-    <section className="min-h-screen pt-12">
-      <div className="container mx-auto">
-        <h2 className="section-title mb-8 xl:mb-16 text-center mx-auto">
-          My Projects
-        </h2>
-        {/* tabs */}
-        <Tabs defaultValue={category} className="mb-24 xl:mb-48">
-          <TabsList className="w-full grid h-full md:grid-cols-5 lg:max-w-[640px] mb-12 mx-auto md:border dark:border-none">
-            {categories.map((category, index) => {
+    <section className="relative mb-12 xl:mb-48">
+      <div className="container mx-auto relative">
+        {/* text */}
+        <div className="max-w-[400px] mx-auto xl:mx-0 text-center xl:text-left mb-12 xl:h-[400px] flex flex-col justify-center items-center xl:items-start">
+          <h2 className="section-title mb-4">Latest Projects</h2>
+          <p className="subtitle mb-8">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+          <Link href="/projects">
+            <Button>All Projects</Button>
+          </Link>
+        </div>
+        {/* slider */}
+        <div className="xl:max-w-[1000px] xl:absolute right-0 top-0">
+          <Swiper
+            className="h-[480px] "
+            slidesPerView={1}
+            breakpoints={{ 640: { slidesPerView: 2 } }}
+            spaceBetween={30}
+            modules={[Pagination]}
+            pagination={{ clickable: true }}
+          >
+            {/* show only the first 4 project for the slides */}
+            {projectData.slice(0, 4).map((project, index) => {
               return (
-                <TabsTrigger
-                  onClick={() => setCategory(category)}
-                  value={category}
-                  key={index}
-                  className="capitalize w-[162px] md:w-auto"
-                >
-                  {category}
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-          {/* tabs content */}
-          <div className="text-lg xl:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {filteredProjects.map((project, index) => {
-              return (
-                <TabsContent value={category} key={index}>
+                <SwiperSlide key={index}>
                   <ProjectCard project={project} />
-                </TabsContent>
+                </SwiperSlide>
               );
             })}
-          </div>
-        </Tabs>
+          </Swiper>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Projects;
+export default Work;
