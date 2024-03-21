@@ -9,6 +9,9 @@ const links = [
   { path: '/', name: 'home' },
   { path: '/projects', name: 'my projects' },
   { path: '/contact', name: 'contact' },
+  { path: '/hero', name: 'hero' },
+  { path: '/skills', name: 'skills' },
+  { path: '/projects2', name: 'projects2' },
 ];
 const Nav = ({ containerStyles, linkStyles, underlineStyles }) => {
   const path = usePathname();
