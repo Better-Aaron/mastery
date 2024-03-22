@@ -1,3 +1,4 @@
+'use server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod'; // npm i zod https://www.npmjs.com/package/zod

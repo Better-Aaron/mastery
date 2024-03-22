@@ -19,6 +19,14 @@ module.exports = {
 }
 ```
 
+3. add prisma
+
+```
+npm i @prisma/client
+npm i prisma -D
+npx prisma init --datasource-provider mysql
+```
+
 keyword
 
 - 정의

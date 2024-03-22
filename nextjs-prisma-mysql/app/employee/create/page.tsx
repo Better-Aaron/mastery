@@ -25,6 +25,14 @@ const CreateEmployeePage = () => {
               className="input input-bordered input-primary w-full max-w-xs"
               placeholder="Full name..."
             />
+            <div
+              id="name-error"
+              aria-live="polite"
+              aria-atomic="true"
+              className=""
+            >
+              <p className="mt-2 text-sm text-red-500">{state?.Error?.name}</p>
+            </div>
           </div>
           <div className="mb-5">
             <label
@@ -40,6 +48,14 @@ const CreateEmployeePage = () => {
               className="input input-bordered input-primary w-full max-w-xs"
               placeholder="Email..."
             />
+            <div
+              id="email-error"
+              aria-live="polite"
+              aria-atomic="true"
+              className=""
+            >
+              <p className="mt-2 text-sm text-red-500">{state?.Error?.email}</p>
+            </div>
           </div>
           <div className="mb-5">
             <label
@@ -55,6 +71,14 @@ const CreateEmployeePage = () => {
               className="input input-bordered input-primary w-full max-w-xs"
               placeholder="Phone Number..."
             />
+            <div
+              id="phone-error"
+              aria-live="polite"
+              aria-atomic="true"
+              className=""
+            >
+              <p className="mt-2 text-sm text-red-500">{state?.Error?.phone}</p>
+            </div>
           </div>
           <button className="btn btn-primary">Save</button>
         </form>
