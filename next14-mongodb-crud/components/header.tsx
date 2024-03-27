@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Header = () => {
   return (
-    <nav className="flex items-center jsutify-between mx-auto p-8 space-x-4">
+    <nav className="flex items-center justify-between mx-auto p-8">
       <Link href="/" className="font-bold text-3xl">
         Home
       </Link>
