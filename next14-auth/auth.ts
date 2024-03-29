@@ -12,7 +12,21 @@ export const {
   signOut,
 } = NextAuth({
   callbacks: {
-    async session({ token, session }) {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (!user.name) {
+        user.name = profile?.response?.name;
+      }
+      const isAllowedToSignIn = true;
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        // Return false to display a default error message
+        return false;
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+    async session({ token, session, user }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }

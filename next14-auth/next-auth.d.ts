@@ -9,4 +9,9 @@ declare module "next-auth" {
   interface Session {
     user: ExtendedUser;
   }
+  interface Profile {
+    response: {
+      name: string;
+    };
+  }
 }
