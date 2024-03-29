@@ -12,8 +12,12 @@ export const {
   signOut,
 } = NextAuth({
   callbacks: {
+    async signIn({ user, account, credentials, email, profile }) {
+      console.log({ user, account, credentials, email, profile });
+      return true;
+    },
     async session({ token, session }) {
-      console.log({ sessionToken: token, session });
+      console.log("---- sesseion");
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -25,6 +29,7 @@ export const {
       return session;
     },
     async jwt({ token }) {
+      console.log("---- jwt");
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);

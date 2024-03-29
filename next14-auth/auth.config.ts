@@ -4,8 +4,24 @@ import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/schemas";
 import { getUserByEmail } from "./data/user";
 
+import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+import Naver from "next-auth/providers/naver";
+
 export default {
   providers: [
+    Naver({
+      clientId: process.env.NAVER_CLIENT_ID,
+      clientSecret: process.env.NAVER_CLIENT_SECRET,
+    }),
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     Credentials({
       async authorize(credentials) {
         const validateField = LoginSchema.safeParse(credentials);
