@@ -27,19 +27,22 @@ export const {
     },
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
+      //* 네이버 로그인시 이름이 insert 되지 않는 문제 보정
       if (!user.name) {
         user.name = profile?.response?.name;
       }
-      const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
-        // Return false to display a default error message
-        return false;
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
+
+      //* Allow OAuth without email verification.
+      if (account?.provider !== "credentioals") return true;
+
+      const existingUser = await getUserById(user.id);
+
+      //* prevent sign in without email verification.
+      if (!existingUser?.emailVerified) return false;
+
+      // TODO: Add 2FA check
+      return true;
     },
     async session({ token, session, user }) {
       if (token.sub && session.user) {
