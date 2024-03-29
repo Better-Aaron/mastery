@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
-  console.log({ url });
   if (url.pathname === "/api/auth/callback/naver") {
     global.fetch = naverFetchInterceptor(originalFetch);
     const response = await AuthGET(req);
