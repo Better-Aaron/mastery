@@ -28,6 +28,10 @@ export const {
   },
   callbacks: {
     async signIn({ user, account, profile }) {
+      console.log({
+        user,
+        account,
+      });
       //* 네이버 로그인시 이름이 insert 되지 않는 문제 보정
       if (!user.name) {
         user.name = profile?.response?.name;
