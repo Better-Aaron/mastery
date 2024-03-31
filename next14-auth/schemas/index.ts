@@ -29,6 +29,7 @@ export const LoginSchema = z.object({
   password: z.string().min(1, {
     message: "비밀번호를 입력해주세요.",
   }),
+  code: z.optional(z.string()),
 });
 
 //* Auth, 회원가입 스키마

@@ -11,6 +11,23 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Tow factor confirmation",
+    html: `<p>Your 2FA code: ${token} </p>`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email: ", error);
+    } else {
+      console.log("Email sent: ", info.response);
+    }
+  });
+};
+
 export const sendPasswordResetEmail = async (email: string, token: string) => {
   const resetLink = `http://localhost:3000/auth/new-password?token=${token}`;
 
