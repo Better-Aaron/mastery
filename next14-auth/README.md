@@ -20,5 +20,5 @@ npx prisma db push // neon에 추가
 ```shell
 npx auth secret
 or
-openssl rnad -hex 32
+openssl rand -hex 32
 ```
