@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <Sidebar />
       <main className="w-full h-full">
         <Header />
-        {children}
+        <div className="p-8">{children}</div>
       </main>
     </div>
   );

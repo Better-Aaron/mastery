@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nivo/bump": "^0.85.1",
+    "@nivo/calendar": "^0.85.1",
+    "@nivo/core": "^0.85.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
