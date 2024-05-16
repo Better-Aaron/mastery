@@ -1,0 +1,1 @@
+npm i clsx framer-motion tailwind-merge @iconify/react
